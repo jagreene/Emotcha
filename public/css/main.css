@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.picture-card {
+    width: 450px;
+    height: 75vh;
+    top: 2.5vh;
+}
+
+.example-card {
+    left: 10vw;
+}
+
+.live-card {
+    left: 10vw;
+}
+
+.submit-btn {
+    float: right;
+    bottom: -2.5vh;
+}
+#example-img {
+    width: 450px;
+    height: 450px;
+}
