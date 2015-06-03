@@ -10,7 +10,6 @@ main {
 
 .picture-card {
     width: 450px;
-    height: 75vh;
     top: 2.5vh;
 }
 
@@ -23,8 +22,9 @@ main {
 }
 
 .submit-btn, .next-btn {
-    float: right;
-    bottom: 30vh;
+    position: absolute;
+    left:85%;
+    bottom: 37.5%;
 }
 #example-img {
     width: 450px;

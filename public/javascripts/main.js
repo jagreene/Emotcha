@@ -1,4 +1,5 @@
 var $submitBtn = $(".submit-btn");
+var $nextBtn = $(".next-btn");
 var $exampleImg = $("#example-img");
 
 var video = document.querySelector('video');
@@ -9,6 +10,7 @@ getExample();
 captureVideo();
 
 $submitBtn.click(function(){
+    console.log("Capturing:", capturing);
     if(capturing){
         getSnapshot();
     } else {
@@ -16,10 +18,15 @@ $submitBtn.click(function(){
     }
 })
 
+$nextBtn.click(function() {
+    getExample();
+})
+
 function getExample() {
     $.get('/image')
     .done(function (data, status){
-        $exampleImg.attr('src', data.image);
+        console.log(data.file);
+        $exampleImg.attr('src', 'images/'+data.file);
         $('#ex-angry').css('width', (data.emotions.Angry*100)+'%');
         $('#ex-sad').css('width', (data.emotions.Sad*100)+'%');
         $('#ex-neutral').css('width', (data.emotions.Neutral*100)+'%');
@@ -35,19 +42,38 @@ function getExample() {
 function getSnapshot(){
     capturing = false;
     canvas = document.createElement('canvas');
+    faceCanvas = document.createElement('canvas');
     canvas.width = 450;
     canvas.height = 450;
     var ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, 600, 450);
     $(video).replaceWith(canvas);
-    var dataURI = canvas.toDataURL('image/jpg');
     $('.submit-btn').children().replaceWith("<i class='mdi-content-undo'></i>");
-    console.log("URI",dataURI);
-    console.log("Canvas Width", canvas.width);
-    console.log("Canvas Height", canvas.height);
-    console.log("Video width:", video.videoWidth);
-    console.log("Video height:", video.videoHeight);
+    $(video).faceDetection({
+        complete: function (faces){
+            console.log(faces);
+            if(faces[0]){
+                faceCanvas.width = faces[0].width;
+                faceCanvas.height = faces[0].height;
+                var ctxf = faceCanvas.getContext('2d');
+                ctxf.drawImage(canvas, faces[0].x, faces[0].y, faces[0].width, faces[0].height, 0, 0, faceCanvas.width, faceCanvas.height);
+                var dataURI = faceCanvas.toDataURL('image/jpg');
+                postImage(dataURI);
+            } else {
+                var dataURI = canvas.toDataURL('image/jpg');
+                postImage(dataURI);
+            }
+        },
 
+        error: function (code, message){
+            console.log("Face Error!", message);
+            var dataURI = canvas.toDataURL('image/jpg');
+            postImage(dataURI);
+        }
+    });
+}
+
+function postImage(dataURI){
     $.post("/image", {data: dataURI})
     .done(function (data, status) {
         $('#lv-angry').css('width', (data.Angry*100)+'%');
@@ -64,7 +90,7 @@ function getSnapshot(){
 
 function captureVideo() {
     if(!capturing){
-        $(canvas).replaceWith("<video width='600', height='450', autoplay></video>")
+        $('canvas').replaceWith("<video width='600', height='450', autoplay></video>")
         video = document.querySelector('video');
     };
 
@@ -78,8 +104,6 @@ function captureVideo() {
             console.log("ERROR!", err);
         });
     }
-    var capturing = true;
     $('.submit-btn').children().replaceWith("<i class='mdi-image-camera-alt'></i>");
-    console.log("Video width:", video.videoWidth);
-    console.log("Video height:", video.videoHeight);
+    capturing = true;
 }
