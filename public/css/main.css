@@ -22,7 +22,7 @@ main {
     left: 10vw;
 }
 
-.submit-btn {
+.submit-btn, .next-btn {
     float: right;
     bottom: 30vh;
 }

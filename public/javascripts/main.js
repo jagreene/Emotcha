@@ -41,6 +41,7 @@ function getSnapshot(){
     ctx.drawImage(video, 0, 0, 600, 450);
     $(video).replaceWith(canvas);
     var dataURI = canvas.toDataURL('image/jpg');
+    $('.submit-btn').children().replaceWith("<i class='mdi-content-undo'></i>");
     console.log("URI",dataURI);
     console.log("Canvas Width", canvas.width);
     console.log("Canvas Height", canvas.height);
@@ -78,6 +79,7 @@ function captureVideo() {
         });
     }
     var capturing = true;
+    $('.submit-btn').children().replaceWith("<i class='mdi-image-camera-alt'></i>");
     console.log("Video width:", video.videoWidth);
     console.log("Video height:", video.videoHeight);
 }
