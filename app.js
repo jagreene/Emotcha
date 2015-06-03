@@ -4,22 +4,23 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var exphbs  = require("express-handlebars");
+var fs = require("fs");
 
 var indico = require("indico.io");
 indico.apiKey = process.env.INDICO_API_KEY;
 
-var index = require("./routes/index")(indico);
+var index = require("./routes/index")(indico, fs);
 
 var app = express();
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 app.use(logger("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({limit:'5mb'}));
+app.use(bodyParser.urlencoded({extended: false, limit: '5mb'}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
