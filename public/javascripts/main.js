@@ -6,11 +6,16 @@ var video = document.querySelector('video');
 var canvas = document.querySelector('canvas');
 var capturing = true;
 
+var exampleEmotions;
+var liveEmotions;
+var metric;
+
 getExample();
 captureVideo();
 
 $submitBtn.click(function(){
-    console.log("Capturing:", capturing);
+    $('.submit-btn').toggleClass('red', true);
+    $('.submit-btn').toggleClass('green', false);
     if(capturing){
         getSnapshot();
     } else {
@@ -25,7 +30,7 @@ $nextBtn.click(function() {
 function getExample() {
     $.get('/image')
     .done(function (data, status){
-        console.log(data.file);
+        exampleEmotions = data.emotions;
         $exampleImg.attr('src', 'images/'+data.file);
         $('#ex-angry').css('width', (data.emotions.Angry*100)+'%');
         $('#ex-sad').css('width', (data.emotions.Sad*100)+'%');
@@ -73,15 +78,42 @@ function getSnapshot(){
     });
 }
 
+function update(){
+    //live updating feature goes here
+}
+
 function postImage(dataURI){
     $.post("/image", {data: dataURI})
     .done(function (data, status) {
+        liveEmotions = data;
         $('#lv-angry').css('width', (data.Angry*100)+'%');
         $('#lv-sad').css('width', (data.Sad*100)+'%');
         $('#lv-neutral').css('width', (data.Neutral*100)+'%');
         $('#lv-surprise').css('width', (data.Surprise*100)+'%');
         $('#lv-fear').css('width', (data.Fear*100)+'%');
         $('#lv-happy').css('width', (data.Happy*100)+'%');
+
+        diffs =[Math.abs(liveEmotions.Angry - exampleEmotions.Angry),
+                Math.abs(liveEmotions.Sad - exampleEmotions.Sad),
+                Math.abs(liveEmotions.Neutral - exampleEmotions.Neutral),
+                Math.abs(liveEmotions.Surprise - exampleEmotions.Surprise),
+                Math.abs(liveEmotions.Fear - exampleEmotions.Fear),
+                Math.abs(liveEmotions.Happy - exampleEmotions.Happy)]
+
+        console.log("Diffs:", diffs);
+        sum = 0;
+        for(i=0; i<diffs.length; i++){
+            sum+= diffs[i];
+        }
+
+        metric = 1 - sum;
+
+        console.log("Metric:", metric);
+        if(metric>.65){
+            $('.submit-btn').children().replaceWith("<i class='mdi-navigation-check'></i>");
+            $('.submit-btn').toggleClass('red', false);
+            $('.submit-btn').toggleClass('green', true);
+        }
     })
     .error(function (data, status){
         console.log(status);
