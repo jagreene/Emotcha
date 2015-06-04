@@ -3,6 +3,7 @@ $('.parallax').parallax();
 var $submitBtn = $(".submit-btn");
 var $nextBtn = $(".next-btn");
 var $downBtn = $(".down-btn");
+var $loginBtn = $(".login-btn");
 var $exampleImg = $("#example-img");
 
 var video = document.querySelector('video');
@@ -44,6 +45,12 @@ $downBtn.click(function() {
         capturing = true;
     }});
 })
+
+$loginBtn.click(function(){
+    if(!$loginBtn.hasClass('disabled')){
+        alert('You could now sucessfully login!');
+    }
+});
 
 function getExample() {
     $.get('/image')
