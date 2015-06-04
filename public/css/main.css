@@ -14,11 +14,12 @@ main {
 }
 
 .example-card {
-    left: 10vw;
+    margin-left: 2.5vw;
 }
 
-.live-card {
-    left: 10vw;
+.login-card {
+    margin-top: 50vh;
+    margin-right:2.5vw;
 }
 
 .submit-btn, .next-btn {
@@ -32,6 +33,11 @@ main {
     left: 50%;
     bottom:5%;
 }
+
+.login-btn {
+    width: 100%;
+}
+
 .parallax-container {
     margin-top: 0vh;
     height: 40vh;

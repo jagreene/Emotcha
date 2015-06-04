@@ -139,6 +139,8 @@ function postImage(dataURI){
             $('.submit-btn').children().replaceWith("<i class='mdi-action-lock-open'></i>");
             $('.submit-btn').toggleClass('red', false);
             $('.submit-btn').toggleClass('green', true);
+            $('.login-btn').toggleClass('disabled', false);
+            getSnapshot();
         }
     })
     .error(function (data, status){
