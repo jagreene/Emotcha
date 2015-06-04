@@ -34,8 +34,7 @@ $submitBtn.click(function(){
         $submitBtn.toggleClass('green', false);
         $loginBtn.toggleClass('disabled', true);
         finished = false
-    }
-    if(capturing){
+    } else if(capturing){
         getSnapshot();
     } else {
         captureVideo();
