@@ -29,9 +29,10 @@ getExample();
 $submitBtn.click(function(){
     if(finished){
         getExample();
-        $('.submit-btn').children().replaceWith("<i class='mdi-av-pause'></i>");
-        $('.submit-btn').toggleClass('red', true);
-        $('.submit-btn').toggleClass('green', false);
+        $submitBtn.children().replaceWith("<i class='mdi-av-pause'></i>");
+        $submitBtn.toggleClass('red', true);
+        $submitBtn.toggleClass('green', false);
+        $loginBtn.toggleClass('disabled', true);
         finished = false
     }
     if(capturing){
@@ -150,10 +151,10 @@ function postImage(dataURI){
 
         console.log("Metric:", metric);
         if(metric>1.2){
-            $('.submit-btn').children('i').replaceWith("<i class='mdi-action-lock-open'></i>");
-            $('.submit-btn').toggleClass('red', false);
-            $('.submit-btn').toggleClass('green', true);
-            $('.login-btn').toggleClass('disabled', false);
+            $submitBtn.children('i').replaceWith("<i class='mdi-action-lock-open'></i>");
+            $submitBtn.toggleClass('red', false);
+            $submitBtn.toggleClass('green', true);
+            $loginBtn.toggleClass('disabled', false);
             capturing = false;
             finished = true;
         }
