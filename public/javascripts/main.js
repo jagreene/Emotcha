@@ -135,7 +135,7 @@ function postImage(dataURI){
         metric = 2 - sum;
 
         console.log("Metric:", metric);
-        if(metric>.65){
+        if(metric>1.2){
             $('.submit-btn').children().replaceWith("<i class='mdi-action-lock-open'></i>");
             $('.submit-btn').toggleClass('red', false);
             $('.submit-btn').toggleClass('green', true);
