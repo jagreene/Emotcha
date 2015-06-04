@@ -10,7 +10,7 @@ main {
 
 .picture-card {
     width: 450px;
-    top: 2.5vh;
+    margin-top: 2.5vh;
 }
 
 .example-card {
