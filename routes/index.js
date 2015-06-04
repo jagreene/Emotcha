@@ -13,7 +13,6 @@ module.exports = function(indico, fs){
           string = new Buffer(data).toString('base64');
           indico.fer(string)
           .then(function(data) {
-            console.log(data);
             res.json({file: image, emotions: data});
           }).catch(function(err) {
             console.warn("Error:", err);
@@ -27,7 +26,6 @@ module.exports = function(indico, fs){
       string=string.split(",")[1];
       indico.fer(string)
       .then(function(data) {
-        console.log(data);
         res.json(data);
       }).catch(function(err) {
         console.warn(err);
