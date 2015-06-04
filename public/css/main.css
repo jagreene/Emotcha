@@ -8,9 +8,14 @@ main {
     flex: 1 0 auto;
 }
 
+.emotcha-container {
+    margin-top:7.5%;
+}
+
 .picture-card {
     width: 450px;
-    margin-top: 15vh;
+    margin-top: 5%;
+    margin-bottom: 5%
 }
 
 .example-card {
@@ -18,7 +23,7 @@ main {
 }
 
 .login-card {
-    margin-top: 50vh;
+    margin-top: 45%;
     margin-right:2.5vw;
 }
 
@@ -39,7 +44,7 @@ main {
 }
 
 .parallax-container {
-    margin-top: 0vh;
+    margin-top: 0%;
     height: 40vh;
 }
 

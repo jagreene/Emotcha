@@ -6,7 +6,7 @@ var $downBtn = $(".down-btn");
 var $exampleImg = $("#example-img");
 
 var video = document.querySelector('video');
-var capturing = true;
+var capturing = false;
 var updateInterval;
 
 var canvas = document.createElement('canvas');
@@ -39,8 +39,9 @@ $nextBtn.click(function() {
 })
 
 $downBtn.click(function() {
-    $.smoothScroll({scrollElemnt: $('.example-card'), scrollTarget: '#example-img', offset: -100, speed: 1000, afterScroll: function(){
+    $.smoothScroll({scrollElemnt: $('.emotcha-container'), scrollTarget: '#target', offset: -100, speed: 1000, afterScroll: function(){
         setTimeout(captureVideo, 200);
+        capturing = true;
     }});
 })
 
@@ -136,11 +137,10 @@ function postImage(dataURI){
 
         console.log("Metric:", metric);
         if(metric>1.2){
-            $('.submit-btn').children().replaceWith("<i class='mdi-action-lock-open'></i>");
+            $('.submit-btn').children('i').replaceWith("<i class='mdi-action-lock-open'></i>");
             $('.submit-btn').toggleClass('red', false);
             $('.submit-btn').toggleClass('green', true);
             $('.login-btn').toggleClass('disabled', false);
-            getSnapshot();
         }
     })
     .error(function (data, status){
