@@ -3,8 +3,17 @@ var $nextBtn = $(".next-btn");
 var $exampleImg = $("#example-img");
 
 var video = document.querySelector('video');
-var canvas = document.querySelector('canvas');
 var capturing = true;
+var updateInterval;
+
+var canvas = document.createElement('canvas');
+var faceCanvas = document.createElement('canvas');
+
+var ctx = canvas.getContext('2d');
+var ctxf = faceCanvas.getContext('2d');
+
+canvas.width = 450;
+canvas.height = 450;
 
 var exampleEmotions;
 var liveEmotions;
@@ -46,13 +55,9 @@ function getExample() {
 
 function getSnapshot(){
     capturing = false;
-    canvas = document.createElement('canvas');
-    faceCanvas = document.createElement('canvas');
-    canvas.width = 450;
-    canvas.height = 450;
-    var ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, 600, 450);
     $(video).replaceWith(canvas);
+    clearInterval(updateInterval);
     $('.submit-btn').children().replaceWith("<i class='mdi-content-undo'></i>");
     $(video).faceDetection({
         complete: function (faces){
@@ -60,7 +65,6 @@ function getSnapshot(){
             if(faces[0]){
                 faceCanvas.width = faces[0].width;
                 faceCanvas.height = faces[0].height;
-                var ctxf = faceCanvas.getContext('2d');
                 ctxf.drawImage(canvas, faces[0].x, faces[0].y, faces[0].width, faces[0].height, 0, 0, faceCanvas.width, faceCanvas.height);
                 var dataURI = faceCanvas.toDataURL('image/jpg');
                 postImage(dataURI);
@@ -79,7 +83,23 @@ function getSnapshot(){
 }
 
 function update(){
-    //live updating feature goes here
+    ctx.drawImage(video, 0, 0, 600, 450);
+    $(canvas).faceDetection({
+        complete: function (faces){
+            console.log(faces);
+            if(faces[0]){
+                faceCanvas.width = faces[0].width;
+                faceCanvas.height = faces[0].height;
+                ctxf.drawImage(canvas, faces[0].x, faces[0].y, faces[0].width, faces[0].height, 0, 0, faceCanvas.width, faceCanvas.height);
+                var dataURI = faceCanvas.toDataURL('image/jpg');
+                postImage(dataURI);
+            }
+        },
+
+        error: function (code, message){
+            console.log("Face Error!", message);
+        }
+    });
 }
 
 function postImage(dataURI){
@@ -138,4 +158,5 @@ function captureVideo() {
     }
     $('.submit-btn').children().replaceWith("<i class='mdi-image-camera-alt'></i>");
     capturing = true;
+    updateInterval = setInterval(update, 1000);
 }
