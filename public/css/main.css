@@ -10,7 +10,7 @@ main {
 
 .picture-card {
     width: 450px;
-    margin-top: 2.5vh;
+    margin-top: 15vh;
 }
 
 .example-card {
@@ -25,6 +25,25 @@ main {
     position: absolute;
     left:85%;
     bottom: 37.5%;
+}
+
+.down-btn {
+    position: absolute;
+    left: 50%;
+    bottom:5%;
+}
+.parallax-container {
+    margin-top: 0vh;
+    height: 40vh;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sub-header {
+    margin-top: 0px;
 }
 #example-img {
     width: 450px;

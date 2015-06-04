@@ -1,5 +1,8 @@
+$('.parallax').parallax();
+
 var $submitBtn = $(".submit-btn");
 var $nextBtn = $(".next-btn");
+var $downBtn = $(".down-btn");
 var $exampleImg = $("#example-img");
 
 var video = document.querySelector('video');
@@ -20,7 +23,6 @@ var liveEmotions;
 var metric;
 
 getExample();
-captureVideo();
 
 $submitBtn.click(function(){
     $('.submit-btn').toggleClass('red', true);
@@ -34,6 +36,12 @@ $submitBtn.click(function(){
 
 $nextBtn.click(function() {
     getExample();
+})
+
+$downBtn.click(function() {
+    $.smoothScroll({scrollElemnt: $('.example-card'), scrollTarget: '#example-img', offset: -100, speed: 1000, afterScroll: function(){
+        setTimeout(captureVideo, 200);
+    }});
 })
 
 function getExample() {
@@ -61,7 +69,6 @@ function getSnapshot(){
     $('.submit-btn').children().replaceWith("<i class='mdi-av-play-arrow'></i>");
     $(video).faceDetection({
         complete: function (faces){
-            console.log(faces);
             if(faces[0]){
                 faceCanvas.width = faces[0].width;
                 faceCanvas.height = faces[0].height;
@@ -86,7 +93,6 @@ function update(){
     ctx.drawImage(video, 0, 0, 600, 450);
     $(canvas).faceDetection({
         complete: function (faces){
-            console.log(faces);
             if(faces[0]){
                 faceCanvas.width = faces[0].width;
                 faceCanvas.height = faces[0].height;
@@ -126,11 +132,11 @@ function postImage(dataURI){
             sum+= diffs[i];
         }
 
-        metric = 1 - sum;
+        metric = 2 - sum;
 
         console.log("Metric:", metric);
         if(metric>.65){
-            $('.submit-btn').children().replaceWith("<i class='mdi-navigation-check'></i>");
+            $('.submit-btn').children().replaceWith("<i class='mdi-action-lock-open'></i>");
             $('.submit-btn').toggleClass('red', false);
             $('.submit-btn').toggleClass('green', true);
         }
