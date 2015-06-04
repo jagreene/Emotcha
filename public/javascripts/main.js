@@ -55,6 +55,8 @@ $downBtn.click(function() {
 $loginBtn.click(function(){
     if(!$loginBtn.hasClass('disabled')){
         alert('You could now sucessfully login!');
+    } else {
+        alert('You need to match emotional profiles with the picture on the left');
     }
 });
 
