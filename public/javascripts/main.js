@@ -58,7 +58,7 @@ function getSnapshot(){
     ctx.drawImage(video, 0, 0, 600, 450);
     $(video).replaceWith(canvas);
     clearInterval(updateInterval);
-    $('.submit-btn').children().replaceWith("<i class='mdi-content-undo'></i>");
+    $('.submit-btn').children().replaceWith("<i class='mdi-av-play-arrow'></i>");
     $(video).faceDetection({
         complete: function (faces){
             console.log(faces);
@@ -142,8 +142,7 @@ function postImage(dataURI){
 
 function captureVideo() {
     if(!capturing){
-        $('canvas').replaceWith("<video width='600', height='450', autoplay></video>")
-        video = document.querySelector('video');
+        $('canvas').replaceWith(video)
     };
 
     navigator.getUserMedia  = navigator.getUserMedia ||navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -156,7 +155,7 @@ function captureVideo() {
             console.log("ERROR!", err);
         });
     }
-    $('.submit-btn').children().replaceWith("<i class='mdi-image-camera-alt'></i>");
+    $('.submit-btn').children().replaceWith("<i class='mdi-av-pause'></i>");
     capturing = true;
     updateInterval = setInterval(update, 1000);
 }
