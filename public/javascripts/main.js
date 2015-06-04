@@ -8,6 +8,7 @@ var $exampleImg = $("#example-img");
 
 var video = document.querySelector('video');
 var capturing = false;
+var finished = false;
 var updateInterval;
 
 var canvas = document.createElement('canvas');
@@ -26,8 +27,13 @@ var metric;
 getExample();
 
 $submitBtn.click(function(){
-    $('.submit-btn').toggleClass('red', true);
-    $('.submit-btn').toggleClass('green', false);
+    if(finished){
+        getExample();
+        $('.submit-btn').children().replaceWith("<i class='mdi-av-pause'></i>");
+        $('.submit-btn').toggleClass('red', true);
+        $('.submit-btn').toggleClass('green', false);
+        finished = false
+    }
     if(capturing){
         getSnapshot();
     } else {
@@ -148,6 +154,8 @@ function postImage(dataURI){
             $('.submit-btn').toggleClass('red', false);
             $('.submit-btn').toggleClass('green', true);
             $('.login-btn').toggleClass('disabled', false);
+            capturing = false;
+            finished = true;
         }
     })
     .error(function (data, status){
