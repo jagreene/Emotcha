@@ -10,6 +10,7 @@ var $exampleImg = $("#example-img");
 var video = document.querySelector('video');
 var capturing = false;
 var finished = false;
+var firstFinish = true;
 var updateInterval;
 
 var canvas = document.createElement('canvas');
@@ -158,12 +159,16 @@ function postImage(dataURI){
 
         console.log("Metric:", metric);
         if(metric>1.2){
-            $submitBtn.children('i').replaceWith("<i class='mdi-action-lock-open'></i>");
+            $submitBtn.children('i').replaceWith("<i class='mdi-content-undo'></i>");
             $submitBtn.toggleClass('red', false);
             $submitBtn.toggleClass('green', true);
             $loginBtn.toggleClass('disabled', false);
             capturing = false;
             finished = true;
+            if(firstFinish){
+                alert("You've sucessfuly matched emotional profiles and unlocked the login button, tap the green arrow on your portrait to try again or the login button to complete the demo login");
+                firstFinish = false;
+            }
         }
     })
     .error(function (data, status){
