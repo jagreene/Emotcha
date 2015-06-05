@@ -2,7 +2,8 @@ $('.parallax').parallax();
 
 var $submitBtn = $(".submit-btn");
 var $nextBtn = $(".next-btn");
-var $downBtn = $(".down-btn");
+var $downExplainBtn = $("#down-explain");
+var $downEmotchaBtn = $("#down-emotcha");
 var $loginBtn = $(".login-btn");
 var $exampleImg = $("#example-img");
 
@@ -45,8 +46,13 @@ $nextBtn.click(function() {
     getExample();
 })
 
-$downBtn.click(function() {
-    $.smoothScroll({scrollElemnt: $('.emotcha-container'), scrollTarget: '#target', offset: -100, speed: 1000, afterScroll: function(){
+$downExplainBtn.click(function() {
+    console.log("down to explain")
+    $.smoothScroll({scrollElemnt: $('.explaination-container'), scrollTarget: '#explanation-target', offset: -$('.explanation-container').height(), speed: 1000});
+})
+
+$downEmotchaBtn.click(function() {
+    $.smoothScroll({scrollElemnt: $('.emotcha-container'), scrollTarget: '#emotcha-target', offset: -75, speed: 1000, afterScroll: function(){
         setTimeout(captureVideo, 200);
         capturing = true;
     }});
