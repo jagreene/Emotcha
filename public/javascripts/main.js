@@ -35,6 +35,7 @@ $submitBtn.click(function(){
         $submitBtn.toggleClass('red', true);
         $submitBtn.toggleClass('green', false);
         $loginBtn.toggleClass('disabled', true);
+        $('.how-to').toggleClass('hide', false);
         finished = false
     } else if(capturing){
         getSnapshot();
@@ -61,7 +62,7 @@ $downEmotchaBtn.click(function() {
 
 $loginBtn.click(function(){
     if(!$loginBtn.hasClass('disabled')){
-        alert('You could now sucessfully login!');
+        alert('You could now sucessfully login if this was a real site!');
     } else {
         alert('You need to match emotional profiles with the picture on the left');
     }
@@ -158,15 +159,16 @@ function postImage(dataURI){
         metric = 2 - sum;
 
         console.log("Metric:", metric);
-        if(metric>1.2){
+        if(metric>1.25){
             $submitBtn.children('i').replaceWith("<i class='mdi-content-undo'></i>");
             $submitBtn.toggleClass('red', false);
             $submitBtn.toggleClass('green', true);
             $loginBtn.toggleClass('disabled', false);
+            $('.how-to').toggleClass('hide', true);
             capturing = false;
             finished = true;
             if(firstFinish){
-                alert("You've sucessfuly matched emotional profiles and unlocked the login button, tap the green arrow on your portrait to try again or the login button to complete the demo login");
+                //alert("You've sucessfuly matched emotional profiles and unlocked the login button, tap the green arrow on your portrait to try again or the login button to complete the demo login");
                 firstFinish = false;
             }
         }
