@@ -168,7 +168,7 @@ function postImage(dataURI){
             capturing = false;
             finished = true;
             if(firstFinish){
-                //alert("You've sucessfuly matched emotional profiles and unlocked the login button, tap the green arrow on your portrait to try again or the login button to complete the demo login");
+                alert("You've sucessfuly matched emotional profiles and unlocked the login button, tap the green arrow on your portrait to try again or the login button to complete the demo login");
                 firstFinish = false;
             }
         }
