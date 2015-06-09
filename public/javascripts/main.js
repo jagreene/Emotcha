@@ -1,5 +1,7 @@
+//Start Parallax Animation
 $('.parallax').parallax();
 
+//Declare JQuery Selectors
 var $submitBtn = $(".submit-btn");
 var $nextBtn = $(".next-btn");
 var $downExplainBtn = $("#down-explain");
@@ -7,12 +9,14 @@ var $downEmotchaBtn = $("#down-emotcha");
 var $loginBtn = $(".login-btn");
 var $exampleImg = $("#example-img");
 
+//Initialize Video Variable
 var video = document.querySelector('video');
 var capturing = false;
 var finished = false;
 var firstFinish = true;
 var updateInterval;
 
+//Initialize Canvas Elements
 var canvas = document.createElement('canvas');
 var faceCanvas = document.createElement('canvas');
 
@@ -22,13 +26,17 @@ var ctxf = faceCanvas.getContext('2d');
 canvas.width = 450;
 canvas.height = 450;
 
+//Initialize Emotional Varialbes
 var exampleEmotions;
 var liveEmotions;
 var metric;
 
+//Get Initial Example
 getExample();
 
+//On Click Functions
 $submitBtn.click(function(){
+    //Logic for play pause restart button on live card
     if(finished){
         getExample();
         $submitBtn.children().replaceWith("<i class='mdi-av-pause'></i>");
@@ -45,15 +53,18 @@ $submitBtn.click(function(){
 })
 
 $nextBtn.click(function() {
+    //Logic for new example button on example card
     getExample();
 })
 
 $downExplainBtn.click(function() {
+    //First movement button
     console.log("down to explain")
     $.smoothScroll({scrollElemnt: $('.explaination-container'), scrollTarget: '#explanation-target', offset: -$('.explanation-container').height(), speed: 1000});
 })
 
 $downEmotchaBtn.click(function() {
+    //second movement button
     $.smoothScroll({scrollElemnt: $('.emotcha-container'), scrollTarget: '#emotcha-target', offset: -75, speed: 1000, afterScroll: function(){
         setTimeout(captureVideo, 200);
         capturing = true;
@@ -61,6 +72,7 @@ $downEmotchaBtn.click(function() {
 })
 
 $loginBtn.click(function(){
+    //Sets alerts for login buttons
     if(!$loginBtn.hasClass('disabled')){
         alert('You could now sucessfully login if this was a real site!');
     } else {
@@ -69,6 +81,7 @@ $loginBtn.click(function(){
 });
 
 function getExample() {
+    //fetch picture and emotional profile from server
     $.get('/image')
     .done(function (data, status){
         exampleEmotions = data.emotions;
@@ -86,6 +99,7 @@ function getExample() {
 }
 
 function getSnapshot(){
+    //Grab image from video and put it on canvas, pause video
     capturing = false;
     ctx.drawImage(video, 0, 0, 600, 450);
     $(video).replaceWith(canvas);
@@ -114,6 +128,7 @@ function getSnapshot(){
 }
 
 function update(){
+    //Grab image from video, find face, and send to server every second
     ctx.drawImage(video, 0, 0, 600, 450);
     $(canvas).faceDetection({
         complete: function (faces){
@@ -133,6 +148,7 @@ function update(){
 }
 
 function postImage(dataURI){
+    //send face to server and respond by changing bars
     $.post("/image", {data: dataURI})
     .done(function (data, status) {
         liveEmotions = data;
@@ -143,6 +159,7 @@ function postImage(dataURI){
         $('#lv-fear').css('width', (data.Fear*100)+'%');
         $('#lv-happy').css('width', (data.Happy*100)+'%');
 
+        //Measure if emotions close enough to unlock system
         diffs =[Math.abs(liveEmotions.Angry - exampleEmotions.Angry),
                 Math.abs(liveEmotions.Sad - exampleEmotions.Sad),
                 Math.abs(liveEmotions.Neutral - exampleEmotions.Neutral),
@@ -179,6 +196,7 @@ function postImage(dataURI){
 }
 
 function captureVideo() {
+    //Start webcam video playing
     if(!capturing){
         $('canvas').replaceWith(video)
     };
