@@ -26,9 +26,9 @@ module.exports = function(indico, fs){
     postImage: function(req, res){
       var string = String(req.body.data);
       string=string.split(",")[1];
-      console.log(string)
       indico.fer(string, {detect:true, sensitivity:.8})
       .then(function(data) {
+        console.log(data)
         if (data.length === 1 && 'location' in data[0]){
           data = data[0]['emotions'];
           status = "found"
