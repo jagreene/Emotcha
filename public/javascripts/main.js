@@ -113,7 +113,7 @@ function pauseCapture(){
 function update(){
     //Grab image from video, find face, and send to server every second
     ctx.drawImage(video, 0, 0, 600, 450);
-    var dataURI = canvas.toDataURL('image/jpeg', .01);
+    var dataURI = canvas.toDataURL('image/png');
     postImage(dataURI);
 }
 
