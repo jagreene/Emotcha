@@ -10,9 +10,13 @@ module.exports = function(indico, fs){
     //send example image to client
     getImage: function(req, res){
       fs.readdir('public/images', function (err, imageNames){
+        var currentFile = req.query.image;
+        console.log(currentFile)
+        var index = imageNames.indexOf(currentFile);
+        imageNames.splice(index, 1);
         image = imageNames[Math.floor(Math.random()*imageNames.length)];
         fs.readFile('public/example_emotions.json', 'utf8', function (err, data) {
-          emotions = JSON.parse(data)[image]
+          var emotions = JSON.parse(data)[image]
           res.json({file: image, emotions: emotions});
         })
      })

@@ -24,6 +24,7 @@ var ctx = canvas.getContext('2d');
 canvas.width = 450;
 canvas.height = 450;
 
+var image = "happy.jpg"
 //Initialize Emotional Varialbes
 var exampleEmotions;
 var liveEmotions;
@@ -44,7 +45,7 @@ $submitBtn.click(function(){
         $('.how-to').toggleClass('hide', false);
         finished = false
     } else if(capturing){
-        getSnapshot();
+        pauseCapture();
     } else {
         captureVideo();
     }
@@ -81,10 +82,10 @@ $loginBtn.click(function(){
 function getExample() {
     //fetch picture and emotional profile from server
     console.log("button pushed")
-    $.get('/image')
+    $.get('/image', {image:image})
     .done(function (data, status){
         exampleEmotions = data.emotions;
-        console.log(data.file)
+        image = data.file
         $exampleImg.attr('src', 'images/'+data.file);
         $('#ex-angry').css('width', (exampleEmotions.Angry*100)+'%');
         $('#ex-sad').css('width', (exampleEmotions.Sad*100)+'%');
@@ -98,7 +99,7 @@ function getExample() {
     })
 }
 
-function getSnapshot(){
+function pauseCapture(){
     //Grab image from video and put it on canvas, pause video
     capturing = false;
     ctx.drawImage(video, 0, 0, 600, 450);
@@ -151,7 +152,6 @@ function postImage(dataURI){
                 $submitBtn.toggleClass('green', true);
                 $loginBtn.toggleClass('disabled', false);
                 $('.how-to').toggleClass('hide', true);
-                capturing = false;
                 finished = true;
                 if(firstFinish){
                     alert("You've sucessfuly matched emotional profiles and unlocked the login button, tap the green arrow on your portrait to try again or the login button to complete the demo login");
@@ -167,9 +167,6 @@ function postImage(dataURI){
 
 function captureVideo() {
     //Start webcam video playing
-    if(!capturing){
-        $('canvas').replaceWith(video)
-    };
 
     navigator.getUserMedia  = navigator.getUserMedia ||navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
@@ -181,6 +178,11 @@ function captureVideo() {
             console.log("ERROR!", err);
         });
     }
+
+    if(!capturing){
+        $('canvas').replaceWith(video)
+    };
+
     $('.submit-btn').children().replaceWith("<i class='mdi-av-pause'></i>");
     capturing = true;
     updateInterval = setInterval(update, 500);
