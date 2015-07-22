@@ -26,7 +26,7 @@ module.exports = function(indico, fs){
     postImage: function(req, res){
       var string = String(req.body.data);
       string=string.split(",")[1];
-      indico.fer(string, {detect:true})
+      indico.fer(string)
       .then(function(data) {
         console.log(data)
         if (data.length === 1 && 'location' in data[0]){
