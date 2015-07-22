@@ -34,6 +34,7 @@ module.exports = function(indico, fs){
           console.log("Face!");
           res.json({data:data, status:status});
         } else {
+          console.log("No Face!");
           res.json({data:NaN, status:"not_found"})
         }
       }).catch(function(err) {
