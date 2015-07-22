@@ -31,6 +31,7 @@ module.exports = function(indico, fs){
         if (data.length === 1 && 'location' in data[0]){
           data = data[0]['emotions'];
           status = "found"
+          console.log("Face!");
           res.json({data:data, status:status});
         } else {
           res.json({data:NaN, status:"not_found"})
