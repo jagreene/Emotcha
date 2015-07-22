@@ -122,6 +122,7 @@ function postImage(dataURI){
     $.post("/image", {data: dataURI})
     .done(function (data, status) {
         if (data['status'] === "found"){
+            console.log("face!")
             data = data['data']
             liveEmotions = data;
             $('#lv-angry').css('width', (data.Angry*100)+'%');
