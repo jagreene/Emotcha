@@ -106,14 +106,14 @@ function pauseCapture(){
     $(video).replaceWith(canvas);
     clearInterval(updateInterval);
     $('.submit-btn').children().replaceWith("<i class='mdi-av-play-arrow'></i>");
-    var dataURI = canvas.toDataURL('image/jpg');
+    var dataURI = canvas.toDataURL('image/jpeg', .2);
     postImage(dataURI);
 }
 
 function update(){
     //Grab image from video, find face, and send to server every second
     ctx.drawImage(video, 0, 0, 600, 450);
-    var dataURI = canvas.toDataURL('image/png');
+    var dataURI = canvas.toDataURL('image/jpeg', .1);
     postImage(dataURI);
 }
 
