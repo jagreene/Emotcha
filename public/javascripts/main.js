@@ -4,7 +4,6 @@ $('.parallax').parallax();
 //Declare JQuery Selectors
 var $submitBtn = $(".submit-btn");
 var $nextBtn = $(".next-btn");
-var $downExplainBtn = $("#down-explain");
 var $downEmotchaBtn = $("#down-emotcha");
 var $loginBtn = $(".login-btn");
 var $exampleImg = $("#example-img");
@@ -55,12 +54,6 @@ $submitBtn.click(function(){
 $nextBtn.click(function() {
     //Logic for new example button on example card
     getExample();
-})
-
-$downExplainBtn.click(function() {
-    //First movement button
-    console.log("down to explain")
-    $.smoothScroll({scrollElemnt: $('.explaination-container'), scrollTarget: '#explanation-target', offset: -$('.explanation-container').height(), speed: 1000});
 })
 
 $downEmotchaBtn.click(function() {
