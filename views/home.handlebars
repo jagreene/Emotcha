@@ -12,6 +12,37 @@
 		<div class="parallax-container">
 			<div class="parallax"><img src="Parallax/mosaic.png"></div>
 		</div>
+
+		<a class="btn-floating btn-large waves-effect waves-light down-btn red" id="down-explain"><i class="mdi-hardware-keyboard-arrow-down"></i></a>
+	</div>
+
+	<div class="explanation-container container" id="explanation-target">
+		<div class="row">
+			<div class="col s12 m4 human-col">
+				<h2 class="center red-text">
+					<i class="mdi-image-flash-on"></i>
+				</h2>
+				<p class="center">
+					By using a real time webcam feed emotcha is able to recognize emotions lightning quick. Gone are the days of squinting at more and more esoteric and difficult to read text, now all you have to do is make a silly face. No worries your face is never stored.
+				</p>
+			</div>
+			<div class="col s12 m4 human-col">
+				<h2 class="center red-text">
+					<i class="mdi-action-face-unlock"></i>
+				</h2>
+				<p class="center">
+					By requiring users to match emotional profiles with a picture, emotcha taps into a uniquely human way to ensure that they aren't robots. We are able to provide this revolutionary feature by doing real time facial localization and feeding cropped faces into <a target="_blank" href="https://indico.io/">indico.io's</a> facial emotional recognition api.
+				</p>
+			</div>
+			<div class="col s12 m4 human-col">
+				<h2 class="center red-text">
+					<i class="mdi-image-tag-faces"></i>
+				</h2>
+				<p class="center">
+					Emotcha is a flatout more engaging and fun way to authenticate users. Captchas are the gateway to your product, and whats a better way to start off than by putting a smile on your users face? Tap the button to try our demo below!
+				</p>
+			</div>
+		</div>
 		<a class="btn-floating btn-large waves-effect waves-light down-btn red" id="down-emotcha"><i class="mdi-hardware-keyboard-arrow-down"></i></a>
 	</div>
 
@@ -20,7 +51,7 @@
 			<div class="col s12 m4 example-col">
 				<div class="card picture-card example-card">
 					<div class="card-image">
-						<img id="example-img", src="images/happy.jpg">
+						<img id="example-img", src="images/surprise.jpg">
 					</div>
 					<div class="card-content">
 						<div class="emotions">
@@ -80,22 +111,15 @@
 			</div>
 
 			<div class="col s12 m4 login-col">
-				<div class="card explain-card">
-					<div class="row">
-						<div class="col s12">
-							<h5> Welcome to Emotcha</h5>
-							<br/>
-							<p>This a proof concept demo of a captcha system built of a truly human characteristic, emotions. Try and match your emotional profile with the one to the left inorder to unlock the mock login form below.</p>
-							<p>Emotcha is built off of <a href="https://indico.io/", target="_blank">indico.io's</a> facial emotional recognition api and is made under a MIT license. The source can be found <a href="https://github.com/jagreene/Emotcha", target="_blank">here</a>, happy authentication!</p>
-						</div>
-					</div>
-				</div>
-
 				<div class="card login-card">
 					<div class="card-content">
 						<div class="row">
+							<div class="col s12">
+							</div>
+						</div>
+						<div class="row">
 							<div class="input-field col s12">
-								<input value="john.doe@gmail.com" id="email" type="email" class="validate">
+								<input value="johndoe@gmail.com" id="email" type="email" class="validate">
 								<label for="email">Email</label>
 							</div>
 						</div>

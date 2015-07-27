@@ -27,9 +27,8 @@ main {
     margin-left: 2.5vw;
 }
 
-.login-card, .explain-card {
-    height: 325px;
-    margin-top: 5.625%;
+.login-card {
+    margin-top: 45%;
     margin-right:2.5vw;
 }
 
@@ -39,12 +38,17 @@ main {
     bottom: 37.5%;
 }
 
-#down-emotcha {
+#down-explain {
     position: absolute;
     left: 47.5%;
     bottom:5%;
 }
 
+#down-emotcha {
+    position: relative;
+    left: 47.5%;
+    bottom: -10%;
+}
 .login-btn {
     width: 100%;
 }
